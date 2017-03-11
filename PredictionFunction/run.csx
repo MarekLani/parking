@@ -420,11 +420,11 @@ static async Task InvokeBatchExecutionService()
     // 3. Call the Batch Execution Service to process the data in the blob. Any output is written to Azure blobs.
     // 4. Download the output blob, if any, to local file
 
-    const string BaseUrl = ConfigurationManager.AppSettings["mlEndpoint"].ToString();
+    string BaseUrl = ConfigurationManager.AppSettings["mlEndpoint"].ToString();
 
-    const string StorageAccountName = ConfigurationManager.AppSettings["storageName"].ToString();
-    const string StorageAccountKey = ConfigurationManager.AppSettings["storageKey"].ToString(); 
-    const string StorageContainerName = "mycontainer"; 
+    string StorageAccountName = ConfigurationManager.AppSettings["storageName"].ToString();
+    string StorageAccountKey = ConfigurationManager.AppSettings["storageKey"].ToString(); 
+    string StorageContainerName = "mycontainer"; 
     string storageConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", StorageAccountName, StorageAccountKey);
 
     const string apiKey = ConfigurationManager.AppSettings["mlApiKey"].ToString(); 
