@@ -39,9 +39,9 @@ public static void Run(TimerInfo myTimer, TraceWriter log)
     //InvokeBatchExecutionService().Wait();
 
     //Reschedule function based on next update
-    //RescheduleTimeTrigger(data);
+    RescheduleTimeTrigger(data, log);
 
-    log.Info("Finished");
+    log.Info("Finished" + DateTime.Now.ToString());
 }
 
 /// <summary>
@@ -57,15 +57,15 @@ private static void RescheduleTimeTrigger(WeatherData data, TraceWriter log)
     var now = DateTime.Now;
 
     //Check whether NextUpdate is not corrupted
-    if (data.NextUpdate <= now)
-    {
-        now = now.AddHours(1);
-        schedule = $"\t\t\"schedule\": \"0 {now.Minute} {now.Hour} {now.Day} * *\"";
-    }
-    else
+    //if (data.NextUpdate <= now)
+    //{
+    //    now = now.AddHours(1);
+    //    schedule = $"\t\t\"schedule\": \"0 {now.Minute} {now.Hour} {now.Day} * *\"";
+    //}
+    //else
 
-        schedule = $"\t\t\"schedule\": \"0 {data.NextUpdate.Minute} {data.NextUpdate.Hour} {data.NextUpdate.Day} * *\"";
-
+    //    schedule = $"\t\t\"schedule\": \"0 {data.NextUpdate.Minute} {data.NextUpdate.Hour} {data.NextUpdate.Day} * *\"";
+    schedule = "* 1 * * * *";
     //Overwrite original settings file
     settings[7] = schedule;
     File.WriteAllLines(@"D:\home\site\wwwroot\WeatherCheckerFunction\function.json", settings);
