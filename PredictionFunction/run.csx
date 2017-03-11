@@ -51,7 +51,7 @@ public static void Run(TimerInfo myTimer, TraceWriter log)
 /// <param name="data"></param>
 private static void RescheduleTimeTrigger(WeatherData data, TraceWriter log)
 {
-    string[] settings = File.ReadAllLines(@"D:\home\site\wwwroot\WeatherCheckerFunction\function.json");
+    string[] settings = File.ReadAllLines(@"D:\home\site\wwwroot\PredictionFunction\function.json");
     var schedule = settings[7];
     log.Info($"Current schedule: {schedule}");
 
@@ -69,7 +69,7 @@ private static void RescheduleTimeTrigger(WeatherData data, TraceWriter log)
     schedule = "* 1 * * * *";
     //Overwrite original settings file
     settings[7] = schedule;
-    File.WriteAllLines(@"D:\home\site\wwwroot\WeatherCheckerFunction\function.json", settings);
+    File.WriteAllLines(@"D:\home\site\wwwroot\PredictionFunction\function.json", settings);
     log.Info($"New schedule: {settings}");
 }
 
