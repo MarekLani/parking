@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Functions
-{
     public class MLBatchRow
     {
         public string WeekDay { get; set; }
@@ -30,4 +28,3 @@ namespace Functions
 
 
     }
-}
