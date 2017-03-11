@@ -427,7 +427,7 @@ static async Task InvokeBatchExecutionService()
     string StorageContainerName = "mycontainer"; 
     string storageConnectionString = string.Format("DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1}", StorageAccountName, StorageAccountKey);
 
-    const string apiKey = ConfigurationManager.AppSettings["mlApiKey"].ToString(); 
+    string apiKey = ConfigurationManager.AppSettings["mlApiKey"].ToString(); 
 
     // set a time out for polling status
     const int TimeOutInMilliseconds = 120 * 1000; // Set a timeout of 2 minutes
