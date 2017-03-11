@@ -66,7 +66,7 @@ private static void RescheduleTimeTrigger(WeatherData data, TraceWriter log)
     //else
 
     //    schedule = $"\t\t\"schedule\": \"0 {data.NextUpdate.Minute} {data.NextUpdate.Hour} {data.NextUpdate.Day} * *\"";
-    schedule = "* 1 * * * *";
+    schedule = $"\t\t\"schedule\":\"* 1 * * * *\"";
     //Overwrite original settings file
     settings[7] = schedule;
     File.WriteAllLines(@"D:\home\site\wwwroot\PredictionFunction\function.json", settings);
