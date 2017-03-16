@@ -33,10 +33,10 @@ using Microsoft.WindowsAzure.Storage.Blob;
 public static void Run(TimerInfo myTimer, TraceWriter log)
 {
     var data = GetWeatherData();
-    //SaveForecastToDB(data);
+    SaveForecastToDB(data);
     //Console.WriteLine(GetWeatherXml().ToString());
 
-    //CreateMLBatchFile(data);
+    CreateMLBatchFile(data);
     //InvokeBatchExecutionService().Wait();
 
     //Reschedule function based on next update
@@ -58,15 +58,14 @@ private static void RescheduleTimeTrigger(WeatherData data, TraceWriter log)
     var now = DateTime.Now;
 
     //Check whether NextUpdate is not corrupted
-    //if (data.NextUpdate <= now)
-    //{
-    //    now = now.AddHours(1);
-    //    schedule = $"\t\t\"schedule\": \"0 {now.Minute} {now.Hour} {now.Day} * *\"";
-    //}
-    //else
+    if (data.NextUpdate <= now)
+    {
+        now = now.AddHours(1);
+        schedule = $"\t\t\"schedule\": \"0 {now.Minute} {now.Hour} {now.Day} * *\"";
+    }
+    else
 
-    //    schedule = $"\t\t\"schedule\": \"0 {data.NextUpdate.Minute} {data.NextUpdate.Hour} {data.NextUpdate.Day} * *\"";
-    schedule = $"\t\t\"schedule\": \"20 * * * * *\"";
+        schedule = $"\t\t\"schedule\": \"0 {data.NextUpdate.Minute} {data.NextUpdate.Hour} {data.NextUpdate.Day} * *\"";
     //Overwrite original settings file
     settings[7] = schedule;
     File.WriteAllLines(@"D:\home\site\wwwroot\PredictionFunction\function.json", settings);
