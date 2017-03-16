@@ -255,7 +255,12 @@ private static void CreateMLBatchFile(WeatherData data)
             dateString = changeTime.AddDays(-7).AddMinutes(-15).ToString("yyyy-MM-dd HH:mm:ss.fff");
             row.v_free_h15m = HistoryData.Where(hd => Convert.ToDateTime(hd.Item1) <= Convert.ToDateTime(dateString)).FirstOrDefault().Item2;
 
-            var wi = data.WeatherItems.Where(item => item.TimeTo >= changeTime).FirstOrDefault();
+            var wi = data.WeatherItems.Where(item => item.TimeFrom <= changeTime && item.TimeTo >= changeTime).FirstOrDefault();
+            if(wi == null)
+            {
+                //yr.no is not always sending forecast for actual period of day, so we need to pull out the closest one
+                wi = data.WeatherItems.Where(item => item.TimeTo >= changeTime).OrderBy(item => item.TimeFrom).FirstOrDefault();
+            }
             if (wi != null)
             {
                 file.WriteLine($"{changeTime.ToString("yyyy-MM-dd HH:mm:ss:fff")},{row.WeekDay},{row.BDay}, {row.Weekend},{row.Holiday},{row.ProbVacation},{row.Feasts},{changeTime.Hour},{changeTime.Minute},{wi.WindSpeedMPS},{wi.Temp},{mlWeatherAssociation[Convert.ToInt32(wi.SymbolNumber)]},{wi.PrecipitationValue},{row.v_free_h},{row.v_free_h5m}, {row.v_free_h10m}, {row.v_free_h15m}");
