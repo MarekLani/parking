@@ -213,7 +213,7 @@ private static void CreateMLBatchFile(WeatherData data)
     }
 
     string dateString;
-    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"inputdata.csv"))
+    using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\home\site\wwwroot\PredictionFunction\inputdata.csv"))
     {
 
         file.WriteLine("datetime,WeekDay,BDay,Weekend,Holiday,ProbVacation,Feasts,Hour,Minute,WIND_SPD,TEMP_TEMP,PSWX_JOINT,PRECIP_AMT,v_free_h0m,v_free_h5m,v_free_h10m,v_free_h15m");
@@ -431,7 +431,7 @@ static async Task InvokeBatchExecutionService()
     // set a time out for polling status
     const int TimeOutInMilliseconds = 120 * 1000; // Set a timeout of 2 minutes
 
-    UploadFileToBlob("inputdata.csv" /*Replace this with the location of your input file, and valid file extension (usually .csv)*/,
+    UploadFileToBlob(@"D:\home\site\wwwroot\PredictionFunction\inputdata.csv" /*Replace this with the location of your input file, and valid file extension (usually .csv)*/,
             "input1datablob.csv" /*Replace this with the name you would like to use for your Azure blob; this needs to have the same extension as the input file */,
             StorageContainerName, storageConnectionString);
 
